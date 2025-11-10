@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Login from './components/Login'
 import Profile from './components/Profile'
+import { Toaster } from "react-hot-toast";
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+       <Toaster position="top-center" reverseOrder={false} />
     </>
   )
 }
