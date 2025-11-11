@@ -1,22 +1,28 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import toast from "react-hot-toast";
+import { useDispatch } from 'react-redux';
+import { aaddUser } from '../Store/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState("sanjay@gmail.com");
     const [password, setPassword] = useState("Sanjay@123");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, {
                 email,
                 password
-            },{withCredentials:true});
+            }, { withCredentials: true });
             const { data: responseData } = response;
-            toast.success(responseData.message)
-
+            toast.success(responseData.message);
+            dispatch(aaddUser(responseData));
+            navigate("/");
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error?.response?.data.message);
         }
     }
     return (
@@ -50,7 +56,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;

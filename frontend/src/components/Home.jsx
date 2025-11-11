@@ -6,11 +6,11 @@ import Footer from './Footer'
 const Home = () => {
   return (
     <>
-     <Navbar/> 
-     <Outlet/>
-     <Footer/>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
