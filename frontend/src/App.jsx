@@ -6,6 +6,7 @@ import Profile from './components/Profile'
 import { Toaster } from "react-hot-toast";
 import { Provider } from 'react-redux'
 import appStore from './Store/appStore'
+import Feed from './components/Feed'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Home />}>
+              <Route path='/' element={<Feed />} />
               <Route path='/login' element={<Login />} />
               <Route path='/profile' element={<Profile />} />
             </Route>
