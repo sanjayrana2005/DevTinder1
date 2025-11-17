@@ -33,7 +33,7 @@ const validateLoginData = (req) => {
 const validateProfileEdit = (req) => {
     const data = req.body;
 
-    const ALLOWED_UPDATES = ["photoUrl", "age", "about", "gender", "skills", "password"];
+    const ALLOWED_UPDATES = ["firstName","lastName","photoUrl", "age", "about", "gender", "skills"];
 
     // Only pick allowed fields
     const isAllowedUpdates = Object.keys(data).every((key) =>   // boolean
