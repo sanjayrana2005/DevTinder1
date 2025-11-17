@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 import { addFeed } from '../Store/feedSlice';
 import toast from 'react-hot-toast';
+import UserCard from './UserCard';
 
 
 const Feed = () => {
@@ -14,9 +15,8 @@ const Feed = () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/feed`, { withCredentials: true })
       dispatch(addFeed(res?.data?.data));
-      console.log(res.data.data)
     } catch (error) {
-      toast.error("Feed fetch error:",error);
+      toast.error("Feed fetch error:", error);
     }
   }
 
@@ -24,9 +24,9 @@ const Feed = () => {
     getFeed();
   }, [])
   return (
-    <div>
-      feed
-    </div>
+    (feed && <div className='flex items-center px-4 justify-center top-8 relative'>
+      <UserCard user={feed[0]} />
+    </div>)
   )
 }
 
