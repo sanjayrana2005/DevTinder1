@@ -3,14 +3,14 @@ import Navbar from './Navbar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { aaddUser } from '../Store/userSlice'
 import toast from 'react-hot-toast'
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const user = useSelector((store) => store.user);
 
   const fetchUser = async () => {
     try {
@@ -26,7 +26,9 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetchUser();
+    if(!user){
+      fetchUser();
+    }
   }, []);
 
   return (
