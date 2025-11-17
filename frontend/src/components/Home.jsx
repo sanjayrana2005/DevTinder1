@@ -17,7 +17,11 @@ const Home = () => {
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/profile/view`, { withCredentials: true })
       dispatch(aaddUser(res.data));
     } catch (error) {
-      navigate("/login");
+      if (error.status === 401) {
+        navigate("/login");
+        return;
+      }
+      toast.error(error?.response?.data || "Something went wrong while fetching user data")
     }
   }
 
