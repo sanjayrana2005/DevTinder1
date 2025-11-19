@@ -13,17 +13,22 @@ const ProfileUserCard = ({ user }) => {
             <div className="rounded-b-md p-3">
             <h2 className="card-title">{`${firstName} ${lastName}`}</h2>
              {
-                    age && gender && <p className='flex gap-5 mb-1'>
-                    <span className='bg-gray-400 px-4 py-1 rounded-sm'>{age} years</span> 
-                    <span className='bg-indigo-400 px-4 py-1 rounded-sm'>{gender}</span>
+                    (age || gender) && <p className='flex gap-5 mb-1'>
+                    {age && <span className='bg-gray-400 px-4 py-1 rounded-sm'>{age} years</span> }
+                    {gender && <span className='bg-indigo-400 px-4 py-1 rounded-sm'>{gender}</span>}
                     </p>
                 } 
-                <p className='bg-gray-300 p-1 rounded-md overflow-auto scrollbar-hide mb-1'>{photoUrl}</p>
-                <p className='bg-gray-300 p-1 rounded-md overflow-auto scrollbar-hide mb-1'>{about}</p>
-                <p className='bg-gray-300 p-1 rounded-md mb-1'>{skills}</p>
+                {
+                    photoUrl && <p className='bg-gray-300 p-1 rounded-md overflow-auto scrollbar-hide mb-1'>{photoUrl}</p>
+                }
+                {
+                    about && <p className='bg-gray-300 p-1 rounded-md overflow-auto scrollbar-hide mb-1'>{about}</p>
+                }
+                {
+                    skills.length > 0  && <p className='bg-gray-300 p-1 rounded-md mb-1'>{skills}</p>
+                }
             </div>
-        </div>
-        
+        </div>    
     )
 }
 

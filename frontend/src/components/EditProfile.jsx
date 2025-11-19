@@ -34,7 +34,7 @@ const EditProfile = ({ user }) => {
             toast.success(responseData.message);
             dispatch(aaddUser(responseData.data));
         } catch (error) {
-             toast.error(error?.response?.data.message);
+             toast.error(error?.response?.data?.message);
         }
     }
     return (
