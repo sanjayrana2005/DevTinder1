@@ -67,7 +67,7 @@ function Navbar() {
                 <Link to="/profile" onClick={() => setDropdownOpen(false)}>Profile</Link>
               </li>
               <li>
-                <Link onClick={() => setDropdownOpen(false)}>Settings</Link>
+                <Link to={"/connections"} onClick={() => setDropdownOpen(false)}>Connections</Link>
               </li>
               <li>
                 <Link to="/" onClick={handleLogOut}>Logout</Link>

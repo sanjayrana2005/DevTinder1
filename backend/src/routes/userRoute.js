@@ -45,8 +45,6 @@ userRouter.get("/user/connections", authUser, async (req, res) => {
                 "firstName lastName photoUrl age about gender"
             );
 
-
-
         res.json({
             data: connections.map((field) => {
                 if (field.fromUserId._id.toString() === loggedInUser._id.toString()) {
@@ -57,7 +55,7 @@ userRouter.get("/user/connections", authUser, async (req, res) => {
         });
     } catch (error) {
         res.status(400).json({
-            message: `ERROR ${error.message}`
+            message: error.message,
         });
     }
 });
