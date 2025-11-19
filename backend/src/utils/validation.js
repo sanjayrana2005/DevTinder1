@@ -25,16 +25,20 @@ const validateLoginData = (req) => {
         throw new Error("Enter required fields");
     }
 
-    if (!validator.isEmail) {
+    if (!validator.isEmail(email)) {
         throw new Error("Email is not valid");
     }
 }
 
 const validateProfileEdit = (req) => {
     const data = req.body;
+    const { firstName, lastName, photoUrl, age, about, gender,skills } = data;
 
     const ALLOWED_UPDATES = ["firstName","lastName","photoUrl", "age", "about", "gender", "skills"];
-
+     
+    if(!firstName && !lastName && !photoUrl && !age && !about && !gender && !skills){
+        throw new Error("Enter any field to update")
+    }
     // Only pick allowed fields
     const isAllowedUpdates = Object.keys(data).every((key) =>   // boolean
         ALLOWED_UPDATES.includes(key)
@@ -45,7 +49,7 @@ const validateProfileEdit = (req) => {
     }
 
     if (data.skills !== undefined) {
-        if (data?.skills.length > 10) {
+        if (data?.skills.length > 20) {
             throw new Error("Skills not allowed more than 10")
         }
     }
@@ -80,7 +84,7 @@ const validateChangePassword = (req) => {
         throw new Error("Enter required field");
     }
 
-    if(password > 50){
+    if(password.length > 50){
         throw new Error("Password must not exceed 50 characters");
     }
 

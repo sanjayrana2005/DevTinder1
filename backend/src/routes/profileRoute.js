@@ -13,7 +13,9 @@ profileRouter.get("/profile/view",authUser, async (req, res) => {
         const user = await userModel.findOne(_id);
         res.send(user);
     } catch (error) {
-        res.status(400).send("ERROR : " + error.message)
+        res.status(400).json({
+            message:error.message
+        })
     }
 });
 
@@ -35,11 +37,14 @@ profileRouter.patch("/profile/edit",authUser, async (req, res) => {
         });
 
     } catch (error) {
-        res.status(400).send(error);
+        console.log(error);
+        res.status(400).json({
+            message:error.message
+        });
     }
 });
 
-profileRouter.patch("/profile/changepaddword",authUser,async (req,res) => {
+profileRouter.patch("/profile/changepassword",authUser,async (req,res) => {
     const {password} = req.body;
     const user = req.user;
     try {

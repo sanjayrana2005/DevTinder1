@@ -26,17 +26,28 @@ const Home = () => {
   }
 
   useEffect(() => {
-    if(!user){
+    if (!user) {
       fetchUser();
     }
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </>
+     <div className="flex flex-col min-h-screen">
+      {/* Navbar sticky */}
+      <div className='sticky top-0 z-50'>
+        <Navbar />
+      </div>
+
+      {/* Main content scrollable */}
+      <main className="flex-1 h-full">
+        <Outlet />
+      </main>
+
+      {/* Footer at bottom */}
+      <footer className="">
+        <Footer />
+      </footer>
+    </div>
   );
 }
 
