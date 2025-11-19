@@ -24,7 +24,8 @@ const Feed = () => {
     getFeed();
   }, [])
   return (
-    (feed && <div className='flex items-center px-4 justify-center top-8 relative'>
+    (feed && <div className='flex flex-col items-center px-4 justify-center top-8 relative'>
+    <h1 className='text-xl font-semibold mb-5'>feed</h1>
       <UserCard user={feed[0]} />
     </div>)
   )

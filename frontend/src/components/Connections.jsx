@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const Connsections = () => {
   const dispatch = useDispatch();
-  const connsections = useSelector((store) => store.connections)
+  const connections = useSelector((store) => store.connections)
 
   const fetchConnections = async () => {
     try {
@@ -19,14 +19,19 @@ const Connsections = () => {
 
   useEffect(() => {
     fetchConnections();
-  }, [])
+  }, []);
 
-  return connsections && (
+  if(connections.length === 0){
+    return <div className='text-center mt-5'>No connection found</div>
+  }
+
+  return connections && (
+    
     <div className='h-screen flex flex-col items-center gap-5 pt-10'>
       <h1 className='font-bold text-xl'>Connections</h1>
       <div className='w-full flex flex-col sm:flex-row gap-5 p-5 ' >
         {
-        connsections.map((connection, index) => {
+        connections.map((connection, index) => {
           const { firstName, lastName, photoUrl, age,about,gender } = connection
           return (
             <div key={index} className='sm:w-1/5 mb-2 bg-blue-100 p-2 rounded-md'>
