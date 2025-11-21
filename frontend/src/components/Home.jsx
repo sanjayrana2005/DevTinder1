@@ -39,7 +39,7 @@ const Home = () => {
       </div>
 
       {/* Main content scrollable */}
-      <main className="flex-1 h-full">
+      <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
 

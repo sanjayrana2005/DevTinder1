@@ -7,7 +7,6 @@ const requestRouter = express.Router();
 const mongoose = require("mongoose");
 
 
-
 //sender side of connection request
 requestRouter.post("/request/send/:status/:toUserId", authUser, async (req, res) => {
     try {
@@ -48,42 +47,50 @@ requestRouter.post("/request/send/:status/:toUserId", authUser, async (req, res)
 
         const connectionRequestData = await connectionRequest.save();
 
-        res.send(`you ${status === "ignored" ? " ignored " : " sent a connection request to "}  ` + toUserExist.firstName);
+        res.json({
+            message: `you ${status === "ignored" ? "ignored " : "sent a connection request to"} ${toUserExist.firstName}`,
+        })
     } catch (error) {
-        res.status(400).send("ERROR : " + error.message);
+        res.status(400).json({ 
+            message: error.message 
+        });
     }
 });
 
 
 //review connection request / accepting connection request
-requestRouter.post("/request/review/:status/:requestId",authUser,async (req,res)=>{
+requestRouter.post("/request/review/:status/:requestId", authUser, async (req, res) => {
     try {
         const loggedInUser = req.user;
-        const {requestId,status} = req.params;
+        const { requestId, status } = req.params;
 
         validateConnectionReviewRequest(req);
-        if(!mongoose.Types.ObjectId.isValid(requestId)){
+        if (!mongoose.Types.ObjectId.isValid(requestId)) {
             throw new Error("Invalid requestId");
         }
 
         //searching / finding request
         const connectionRequest = await ConnectionRequestModel.findOne({
-            _id:requestId,
-            toUserId:loggedInUser._id,
-            status:"interested"
+            _id: requestId,
+            toUserId: loggedInUser._id,
+            status: "interested"
         });
 
-        if(!connectionRequest){
+        if (!connectionRequest) {
             throw new Error("connection request not found");
         }
 
-         connectionRequest.status = status;
-         await connectionRequest.save();
+        connectionRequest.status = status;
+        await connectionRequest.save();
 
-         res.send("connection request "+status);
+        res.json({
+            message: "connection request " + status,
+        })
 
     } catch (error) {
-        res.status(400).send("ERROR : "+error.message);
+        res.status(400).json({
+            message: error.message
+        });
     }
 })
 

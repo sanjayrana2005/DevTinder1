@@ -70,6 +70,9 @@ function Navbar() {
                 <Link to={"/connections"} onClick={() => setDropdownOpen(false)}>Connections</Link>
               </li>
               <li>
+                <Link to={"/requests"} onClick={() => setDropdownOpen(false)}>Requests</Link>
+              </li>
+              <li>
                 <Link to="/" onClick={handleLogOut}>Logout</Link>
               </li>
             </ul>

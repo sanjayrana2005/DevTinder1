@@ -16,12 +16,15 @@ userRouter.get("/user/requests/received", authUser, async (req, res) => {
 
         res.status(200).json({
             message: "connection requests",
-            data: connectionRequests.map(field => field.fromUserId)
+            data: connectionRequests.map(field => ({
+                _id: field._id,
+                fromUserId: field.fromUserId
+            }))
         });
 
     } catch (error) {
         res.status(400).json({
-            message: `ERROR ${error.message}`
+            message: error.message
         });
 
     }
@@ -86,10 +89,10 @@ userRouter.get("/feed", authUser, async (req, res) => {
                 { _id: { $nin: Array.from(hiddenUserFromFeed) } },
                 { _id: { $ne: loggedInUser } }
             ]
-        }).select("firstName lastName photoUrl age gender about").skip((page-1)*limit).limit(limit);
+        }).select("firstName lastName photoUrl age gender about").skip((page - 1) * limit).limit(limit);
 
         res.json({
-            data:users
+            data: users
         })
     } catch (error) {
         res.status(400).json({
