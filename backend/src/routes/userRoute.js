@@ -96,7 +96,7 @@ userRouter.get("/feed", authUser, async (req, res) => {
         })
     } catch (error) {
         res.status(400).json({
-            message: `ERROR ${error.message}`
+            message: error.message
         });
     }
 })

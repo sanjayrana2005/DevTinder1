@@ -1,7 +1,19 @@
-import React, { use } from 'react'
+import axios from 'axios';
+import React from 'react'
+import toast from 'react-hot-toast';
 
 const UserCard = ({ user }) => {
-    const { firstName, lastName, age, gender, about, photoUrl } = user;
+    const { _id,firstName, lastName, age, gender, about, photoUrl } = user;
+
+    const handleSendRequest =async (status,_id) => {
+        try {
+            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/request/send/${status}/${_id}`,{},{withCredentials:true})
+            toast.success(res?.data?.message)
+        } catch (error) {
+            toast.error(error?.response?.data?.message)
+        }
+    }
+
     return (
         <div className="card bg-base-100 w-72 max-w-96 shadow-lg">
             <figure className='bg-base-300'>
@@ -17,8 +29,8 @@ const UserCard = ({ user }) => {
                 }
                 <p>{about}</p>
                 <div className="card-actions justify-center mt-1">
-                    <button className="btn btn-primary bg-red-600 opacity-80 border-none">Ignore</button>
-                    <button className="btn btn-primary bg-green-600 opacity-80 border-none">Interested</button>
+                    <button onClick={() => handleSendRequest("ignored",_id)} className="btn btn-primary bg-red-600 opacity-80 border-none">Ignore</button>
+                    <button onClick={() => handleSendRequest("interested",_id)} className="btn btn-primary bg-green-600 opacity-80 border-none">Interested</button>
                 </div>
             </div>
         </div>

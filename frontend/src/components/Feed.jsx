@@ -9,14 +9,13 @@ import UserCard from './UserCard';
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
-
   const getFeed = async () => {
     if (feed) return;
     try {
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/feed`, { withCredentials: true })
       dispatch(addFeed(res?.data?.data));
     } catch (error) {
-      toast.error("Feed fetch error:", error);
+      toast.error(error?.response?.data.message);
     }
   }
 
