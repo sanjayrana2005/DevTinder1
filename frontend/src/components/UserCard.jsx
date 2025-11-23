@@ -1,14 +1,19 @@
 import axios from 'axios';
 import React from 'react'
 import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserFromFeed } from '../Store/feedSlice';
 
 const UserCard = ({ user }) => {
-    const { _id,firstName, lastName, age, gender, about, photoUrl } = user;
+    const feed = useSelector((store) => store.feed);
+  const dispatch = useDispatch();
+    const { _id ,firstName, lastName, age, gender, about, photoUrl } = user;
 
     const handleSendRequest =async (status,_id) => {
         try {
-            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/request/send/${status}/${_id}`,{},{withCredentials:true})
-            toast.success(res?.data?.message)
+            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/request/send/${status}/${_id}`,{},{withCredentials:true});
+            dispatch(removeUserFromFeed(_id));
+            toast.success(res?.data?.message);
         } catch (error) {
             toast.error(error?.response?.data?.message)
         }

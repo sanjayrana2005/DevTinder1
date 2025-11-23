@@ -21,7 +21,11 @@ const Feed = () => {
 
   useEffect(() => {
     getFeed();
-  }, [])
+  }, []);
+
+  if(!feed) return;
+
+  if(feed.length <=  0 ) return <h1 className='text-center font-medium mt-5'>No new users found</h1>
   return (
     (feed && <div className='flex flex-col items-center px-4 justify-center top-8 relative'>
     <h1 className='text-xl font-semibold mb-5'>feed</h1>
