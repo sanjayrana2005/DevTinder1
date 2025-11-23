@@ -1,12 +1,7 @@
 const express = require("express");
 const connectDB = require("./src/config/connectDB");
 const userModel = require("./src/models/userModel");
-const { validateSignupData } = require("./src/utils/validation");
-const bcrypt = require("bcrypt");
-const validator = require("validator");
 const cookieParser = require("cookie-parser");
-const jwt = require('jsonwebtoken');
-const { authUser } = require("./src/middleware/auth");
 const authRouter = require("./src/routes/authRoute");
 const profileRouter = require("./src/routes/profileRoute");
 const requestRouter = require("./src/routes/requestRouter");
