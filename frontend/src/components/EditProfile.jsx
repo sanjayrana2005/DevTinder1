@@ -4,19 +4,21 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from 'react-redux';
 import { aaddUser } from '../Store/userSlice';
 import ProfileUserCard from './ProfileUserCard';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = ({ user }) => {
 
 
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
-    const [age, setAge] = useState(user.age);
-    const [gender, setGender] = useState(user.gender);
-    const [photoUrl, setPhotoUrls] = useState(user.photoUrl);
+    const [age, setAge] = useState(user.age || "");
+    const [gender, setGender] = useState(user.gender || "");
+    const [photoUrl, setPhotoUrls] = useState(user.photoUrl || "");
     const [about, setAbout] = useState(user.about);
-    const [skills, setSkills] = useState(user.skills);
+    const [skills, setSkills] = useState(user.skills || "");
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const handleSaveProfile = async () => {
         try {
@@ -33,6 +35,7 @@ const EditProfile = ({ user }) => {
             const { data: responseData } = response;
             toast.success(responseData.message);
             dispatch(aaddUser(responseData.data));
+                navigate("/");
         } catch (error) {
              toast.error(error?.response?.data?.message);
         }

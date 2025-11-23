@@ -43,7 +43,7 @@ const Requests = () => {
                         const {_id,fromUserId} = request;
                         const {firstName, lastName, age, gender, photoUrl, about } = fromUserId
                         return (
-                            <div key={index} className='bg-blue-300 flex gap-2 mt-4 p-2 rounded w-full'>
+                            <div key={index} className='bg-blue-300 sm:flex gap-2 mt-4 p-2 rounded w-full'>
                                 <div className='flex items-center'>
                                     <img src={photoUrl || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"} alt="user photo" className='w-14 h-14 rounded-full object-cover' />
                                 </div>

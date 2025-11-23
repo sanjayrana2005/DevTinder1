@@ -12,27 +12,34 @@ authRouter.post("/signup", async (req, res) => {
         // validation of data
         validateSignupData(req);
 
-        
+
         const user = await userModel.findOne({ email })
         if (user) {
             throw new Error("user already exist")
         }
-        
+
         const hasPAssword = await bcrypt.hash(password, 10);
-        
-        newUser = new userModel({
+
+        const newUser = new userModel({
             firstName,
             lastName,
             email,
             password: hasPAssword
         });
 
-        await newUser.save();
+        const saveNewUser = await newUser.save();
+        const token = jwt.sign({ userId: newUser._id }, "JWT_PASS@123", { expiresIn: "7d" })
+        res.cookie("token", token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), httpOnly: true });
 
-        res.send("User created sucessfully!!!");
+        res.json({
+            message: "User created sucessfully!!!",
+            data: saveNewUser
+        });
 
     } catch (error) {
-        res.status(400).send("Error : " + error.message)
+        res.status(400).send({
+            message: error.message
+        })
     }
 });
 
@@ -53,25 +60,25 @@ authRouter.post("/login", async (req, res) => {
 
 
         // create a JWT Token
-        const token = jwt.sign({ userId: user._id }, "JWT_PASS@123",{ expiresIn:  "7d"});
-        
+        const token = jwt.sign({ userId: user._id }, "JWT_PASS@123", { expiresIn: "7d" });
+
         // Add token to cookie and send back to user
-        res.cookie("token", token,{ expires: new Date(Date.now() + 7 * 24 *60 * 60 *1000), httpOnly: true });
+        res.cookie("token", token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), httpOnly: true });
         res.json({
-            message:"Login successfully",
-            data:user
+            message: "Login successfully",
+            data: user
         });
 
     } catch (error) {
         res.status(400).json({
-            message : error.message
+            message: error.message
         })
     }
-}); 
+});
 
-authRouter.post("/logout",(req,res)=>{
-    const {token} = req.cookies;
-    res.cookie("token", null ,{ expires:new Date(Date.now())});
+authRouter.post("/logout", (req, res) => {
+    const { token } = req.cookies;
+    res.cookie("token", null, { expires: new Date(Date.now()) });
     res.send("logout successfully");
 });
 

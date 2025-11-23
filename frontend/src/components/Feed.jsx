@@ -10,7 +10,7 @@ const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
   const getFeed = async () => {
-    if (feed) return;
+    if (feed && feed.length > 0) return;
     try {
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/feed`, { withCredentials: true })
       dispatch(addFeed(res?.data?.data));
@@ -20,7 +20,9 @@ const Feed = () => {
   }
 
   useEffect(() => {
+     if (!feed || feed.length === 0) {
     getFeed();
+  }
   }, []);
 
   if(!feed) return;
