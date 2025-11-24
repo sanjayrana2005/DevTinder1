@@ -22,10 +22,10 @@ function Navbar() {
       });
       dispatch(removeUser());
       setDropdownOpen(false);
-      toast.success(res.data);
+      toast.success(res?.data?.message || "Logged out successfully");
       navigate("/login");
     } catch (error) {
-      toast.error(error?.response?.data || "Something went wrong");
+      toast.error(error?.response?.data?.message || "Something went wrong");
     }
   };
 
