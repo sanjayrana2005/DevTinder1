@@ -22,7 +22,7 @@ const Home = () => {
         return;
       }
       
-       toast.error(error?.response?.data || "Something went wrong while fetching user data")
+       toast.error("Something went wrong while fetching user data")
     }
   }
 
