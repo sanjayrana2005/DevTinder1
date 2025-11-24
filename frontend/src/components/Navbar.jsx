@@ -94,7 +94,7 @@ function Navbar() {
                 <Link to={"/requests"} onClick={() => setDropdownOpen(false)}>Requests</Link>
               </li>
               <li>
-                <Link to="/" onClick={handleLogOut}>Logout</Link>
+                <Link to="/login" onClick={handleLogOut}>Logout</Link>
               </li>
             </ul>
           )}
