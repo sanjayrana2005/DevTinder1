@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { use, useEffect } from 'react'
 import Navbar from './Navbar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer'
@@ -17,7 +17,7 @@ const Home = () => {
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/profile/view`, { withCredentials: true })
       dispatch(aaddUser(res.data));
     } catch (error) {
-      if (error.status === 401) {
+      if (error?.response?.status === 401) {
         navigate("/login");
         return;
       }
@@ -29,6 +29,8 @@ const Home = () => {
     if (!user) {
       fetchUser();
     }
+
+    if(!user) return null;
   }, []);
 
   return (
