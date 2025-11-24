@@ -22,33 +22,12 @@ function Navbar() {
       });
       dispatch(removeUser());
       setDropdownOpen(false);
-      toast.success(res?.data?.message || "Logged out successfully");
+      toast.success(res?.data?.message ||"logout successfully");
       navigate("/login");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
     }
   };
-
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/profile/view`, { withCredentials: true })
-      dispatch(aaddUser(res?.data?.data));
-    } catch (error) {
-      if (error?.response?.status === 401) {
-        navigate("/login");
-        return;
-      }
-      
-       toast.error(error?.response?.data || "Something went wrong while fetching user data")
-    }
-  }
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     fetchUser();
-  //   }
-
-  // }, []);
 
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -94,7 +73,7 @@ function Navbar() {
                 <Link to={"/requests"} onClick={() => setDropdownOpen(false)}>Requests</Link>
               </li>
               <li>
-                <Link to="/login" onClick={handleLogOut}>Logout</Link>
+                <Link to="/" onClick={handleLogOut}>Logout</Link>
               </li>
             </ul>
           )}
