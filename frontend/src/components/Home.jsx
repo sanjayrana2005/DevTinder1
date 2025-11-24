@@ -30,8 +30,8 @@ const Home = () => {
       fetchUser();
     }
 
-    if(!user) return null;
   }, []);
+  if(!user) return null;
 
   return (
      <div className="flex flex-col min-h-screen">
