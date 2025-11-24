@@ -12,7 +12,7 @@ const Feed = () => {
   const getFeed = async () => {
     if (feed && feed.length > 0) return;
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/feed`, { withCredentials: true })
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/feed`, { withCredentials: true })
       dispatch(addFeed(res?.data?.data));
     } catch (error) {
       toast.error(error?.response?.data.message);

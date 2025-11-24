@@ -63,7 +63,7 @@ userRouter.get("/user/connections", authUser, async (req, res) => {
     }
 });
 
-userRouter.get("/feed", authUser, async (req, res) => {
+userRouter.get("/api/feed", authUser, async (req, res) => {
     try {
         //user should see all other cards except
         //0. his own card 1.his connection, 2. already sent connection request, 3. ignored request
