@@ -30,7 +30,13 @@ authRouter.post("/signup", async (req, res) => {
 
         const saveNewUser = await newUser.save();
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: "7d" })
-        res.cookie("token", token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), httpOnly: true });
+        res.cookie("token", token,
+            {
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+                secure: true,         // works on HTTPS
+                sameSite: "none",
+            });
 
         res.json({
             message: "User created sucessfully!!!",
@@ -64,7 +70,13 @@ authRouter.post("/login", async (req, res) => {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
         // Add token to cookie and send back to user
-        res.cookie("token", token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), httpOnly: true });
+        res.cookie("token", token,
+            {
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+                secure: true,         // works on HTTPS
+                sameSite: "none",
+            });
         res.json({
             message: "Login successfully",
             data: user
