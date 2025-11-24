@@ -42,9 +42,7 @@ const Login = () => {
             navigate("/profile");
             dispatch(aaddUser(res?.data?.data));
         } catch (error) {
-            console.log(error)
-            toast.error(error?.response?.data?.message)
-
+            toast.error(error?.response?.data?.message);
         }
     }
     return (
