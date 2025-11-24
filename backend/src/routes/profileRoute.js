@@ -11,7 +11,7 @@ profileRouter.get("/profile/view",authUser, async (req, res) => {
         const {_id} = req.user;
 
         const user = await userModel.findOne(_id);
-        res.send(user);
+        res.json({data:user});
     } catch (error) {
         res.status(400).json({
             message:error.message

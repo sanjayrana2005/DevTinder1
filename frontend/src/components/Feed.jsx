@@ -15,7 +15,7 @@ const Feed = () => {
       const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/feed`, { withCredentials: true })
       dispatch(addFeed(res?.data?.data));
     } catch (error) {
-      toast.error(error?.response?.data.message);
+        toast.error(error?.response?.data);
     }
   }
 

@@ -6,10 +6,10 @@ const authUser = async (req,res,next)=>{
     try {
         const {token} = req.cookies;
         if(!token){
-            return res.status(401).send("please login");
+            return res.status(401).json({message:"please login"});
         }
 
-        const decode = jwt.verify(token,"JWT_PASS@123");
+        const decode = jwt.verify(token,process.env.JWT_SECRET);
         if(!decode){
             throw new Error("Invalid token");
         }
@@ -21,7 +21,7 @@ const authUser = async (req,res,next)=>{
         req.user = user;
         next();
     } catch (error) {
-        res.status(400).send("ERROR : "+error.message)
+        res.status(400).json({message:error.message});
     }
 }
 

@@ -29,6 +29,27 @@ function Navbar() {
     }
   };
 
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/profile/view`, { withCredentials: true })
+      dispatch(aaddUser(res?.data?.data));
+    } catch (error) {
+      if (error?.response?.status === 401) {
+        navigate("/login");
+        return;
+      }
+      
+       toast.error(error?.response?.data || "Something went wrong while fetching user data")
+    }
+  }
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     fetchUser();
+  //   }
+
+  // }, []);
+
   // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {

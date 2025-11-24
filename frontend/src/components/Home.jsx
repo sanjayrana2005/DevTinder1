@@ -8,29 +8,6 @@ import { aaddUser } from '../Store/userSlice'
 import toast from 'react-hot-toast'
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
-
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/profile/view`, { withCredentials: true })
-      dispatch(aaddUser(res.data));
-    } catch (error) {
-      if (error?.response?.status === 401) {
-        navigate("/login");
-        return;
-      }
-      toast.error(error?.response?.data || "Something went wrong while fetching user data")
-    }
-  }
-
-  useEffect(() => {
-    if (!user) {
-      fetchUser();
-    }
-
-  }, []);
  
   return (
      <div className="flex flex-col min-h-screen">
